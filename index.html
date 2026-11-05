@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>지역 의료이용 지도</title>
+  <meta name="description" content="공공 의료 통계로 시군구별 진료 현황을 전국 평균과 비교해 보는 지도입니다.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="vendor/leaflet.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <h1>지역 의료이용 지도</h1>
+      <p>공공 의료 통계로 보는 시군구별 진료 현황</p>
+    </div>
+    <div class="top-tools">
+      <div class="field">
+        <label for="search">지역 찾기</label>
+        <input id="search" list="region-list" placeholder="예: 수원시, 강릉시" autocomplete="off">
+        <datalist id="region-list"></datalist>
+      </div>
+      <a class="about-link" href="about.html">출처와 계산 방법</a>
+    </div>
+  </header>
+
+  <main class="layout">
+    <nav class="controls" aria-label="지도 설정">
+      <h2>무엇을 볼까요</h2>
+      <div id="indicators" class="indicators"></div>
+
+      <div class="field">
+        <label for="age">연령대</label>
+        <select id="age"></select>
+        <p id="age-help" class="help"></p>
+      </div>
+
+      <fieldset class="segment">
+        <legend>연도</legend>
+        <div id="years" class="segment-row"></div>
+      </fieldset>
+
+      <fieldset class="segment">
+        <legend>지수 계산</legend>
+        <div class="segment-row">
+          <label><input type="radio" name="mode" value="std" checked><span>나이 구조 보정</span></label>
+          <label><input type="radio" name="mode" value="crude"><span>보정 없음</span></label>
+        </div>
+        <p id="mode-help" class="help"></p>
+      </fieldset>
+    </nav>
+
+    <section class="stage" aria-label="지도">
+      <div class="stage-head">
+        <div>
+          <h2 id="stage-title"></h2>
+          <p id="stage-sub"></p>
+        </div>
+        <div class="view-switch" role="group" aria-label="보기 방식">
+          <button type="button" data-view="map" aria-pressed="true">지도</button>
+          <button type="button" data-view="table" aria-pressed="false">표</button>
+        </div>
+      </div>
+      <p id="notice" class="notice" hidden></p>
+      <div id="map-view" class="map-view">
+        <div id="map" role="img" aria-label="시군구별 지수를 색으로 나타낸 지도. 같은 내용을 표 보기에서 확인할 수 있습니다."></div>
+        <div id="legend" class="legend"></div>
+      </div>
+      <div id="table-view" class="table-view" hidden></div>
+      <p id="status" class="status" role="status"></p>
+    </section>
+
+    <aside class="panel" aria-label="지역 상세" aria-live="polite">
+      <div id="panel"></div>
+    </aside>
+  </main>
+
+  <footer class="bottom">
+    <p>진료 이용 통계입니다. 개인의 질병 위험 예측이나 보험 상품 추천이 아닙니다.</p>
+  </footer>
+
+  <script src="vendor/leaflet.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
